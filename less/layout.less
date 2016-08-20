@@ -1,0 +1,171 @@
+html, body {
+	background-color: @background_col;
+}
+
+@doc_margin: 30px; // set independent of font-size!
+@max_width: 1000px;
+
+body {
+	//padding: @doc_margin
+}
+
+section {
+	margin: @doc_margin;
+	padding: @doc_margin;
+	clear: both;
+	
+	.wrapper {
+		max-width: @max_width;
+		margin: 0 auto;
+	}
+	
+	.col {
+		width: 33.3%;
+		float: left;
+		
+		.inner {
+			margin: 0 @doc_margin;
+		}
+		
+		div.title-img {
+			position: relative;
+			display: block;
+			margin: 0 auto;
+			width: 180px;
+			height: 180px;
+			text-align: center;
+			background-color: #eee;
+			border-radius: 90px;
+			
+			img {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin: -30px 0 0 -30px;
+				width: 60px;
+			}
+		}
+	}
+	.col:last-child {
+		//width: 33.4%;
+	}
+}
+
+@media screen and (max-width: @handset) {
+	section {
+		margin: 0em;
+		padding: .8em;
+	
+		.wrapper {
+			max-width: 100%;
+		}
+	}
+}
+
+@media screen and (max-width: 1100px) {
+	section {
+		.col {
+			width: 100%;
+			float: none;
+			.inner {
+				padding: .8em;
+			}
+		}
+	}
+}
+
+// specific parts
+
+header {
+	
+	position: fixed;
+	z-index: 200;
+	
+	width: 100%;
+	padding: 0;
+	top: 0;
+
+	// font
+	font-family: @nav_font;
+	font-size: 13px;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: .25pt;
+	
+	// links
+	a, a.link, a:hover, a.active {
+		text-decoration: none;
+		color: #444;
+		
+		display: inline-block;
+		padding: 12px;
+		border-radius: 2px;
+		border: 1px solid transparent; 
+		
+	}	
+	
+	a:hover {
+		border-color: lighten(#444, 60%) !important; // TODO
+	}
+	
+	nav {
+		position: relative;
+		float: left;
+		width: 100%;
+		padding: 12px 0 12px 0;
+		background-color: @background_col;
+		//border: 3px solid yellow;
+		
+		ul {
+			float: right;
+			width: auto;
+			margin: 0;
+			padding: 0;
+			margin-right: 2*@doc_margin;
+		}
+		
+		li {
+			position: relative;
+			display: inline-block;
+			margin-left: 10px;
+		}
+	}
+	
+	nav:after {
+		position: absolute;
+		bottom: 0;
+		width: 80%;
+		left: 10%;
+		height: 15px;
+		border-radius: 100%;
+		content: "";
+		background-color: red;
+	
+	    box-shadow: 0 -3px 10px 5px rgba(0, 0, 0, 0.3);
+		
+		z-index: -1;
+	}
+	
+	
+	#logo {
+		position: relative;
+		float: left;
+		margin-left: 2*@doc_margin;
+		padding-left: 40px;
+		
+		img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 35px;
+		}
+	}
+}
+
+section:first-child {
+	margin-top: 60px;
+}
+
+section#verein {
+	background-color: @verein;
+}

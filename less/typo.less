@@ -1,0 +1,276 @@
+body, td, textarea, input {
+	font-family: @text_font;
+	font-size: @font_size;
+	
+	// font-smoothing
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.004)
+}
+
+// -- general styles ----------------------------------------------------------
+
+section {
+	line-height: 1.5;
+	padding: 1em 0;
+	font-weight: 300;
+	
+	h1, h2, h3,h4, h5, h6 {
+		font-family: @header_font;
+		font-weight: 700;
+		font-size: 2em;
+		color: @header_col;
+		text-align: center;
+	}
+	
+	div.h, h1, h2, h3, h4, h5, h6{
+		margin: .5em auto .4em;
+	}
+	
+	h1, h2, h3 {
+		text-transform: uppercase;
+	}
+	
+	h4, h5, h6 {
+		margin-top: 1.2em;
+		font-family: @text_font;
+		font-weight: 400;
+		text-align: left;
+	}
+		
+	h2 {font-size: 1.7em};
+	h3 {font-size: 1.5em};
+	h4 {font-size: 1.3em};
+	h5,h6 {font-size: 1.1em};
+	
+	div.h {
+		position: relative;
+		text-align: center;
+		
+		h1,h2,h3,h4,h5,h6 {
+			display: inline-block;
+			padding: 0 1em;
+			margin: 0;
+		}
+		
+		&:after {
+			content: "";
+			z-index: -1;
+			position: absolute;
+			top: 50%;
+			left: -2%;
+			width: 104%;
+			border-top: 1px solid fade(@text_col, 50%);
+		}
+	}
+
+	p, ul, ol, dl {
+		margin: 1em 0 .5em;
+		-webkit-hyphens: auto;
+	       -moz-hyphens: auto;
+		   		hyphens: auto;
+	}	
+	h1, h2, h3, h4, h5, h5, div.h {
+		& + ul,
+		& + p,
+		& + dl {
+			margin-top: 0;
+		}
+	}
+	
+	em {
+		font-weight: 500;
+//		font-style: italic;
+	}
+	
+	blockquote {
+		position: relative;
+		margin: 1em 2.5em 1em;
+		padding: 0 0 1.4em;
+		font-style: italic;
+		font-size: 1.2em;
+		
+		small {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			width: 100%;
+			font-size: .8em;
+			display: block;
+			font-weight:normal;
+			font-style: normal;
+			text-align: right;
+			&:before {
+				content: "— ";
+			}
+		}
+	}
+
+	blockquote:before {
+		position: absolute;
+		left: -5pt;
+		content: "„";
+	}
+	blockquote:after {
+		position: static;
+		content: "“";
+	}
+
+	ul,ol {
+		li {
+			position: relative;
+			padding: .2em 0 .2em .7em;
+			margin-left: 0.5em;// 2em;
+		}
+		li:before {
+			position: absolute;
+			top: .2em;
+			left: -.2em;
+			content: "\0BB";
+		}
+	
+		ul {
+			margin: 0;	
+			li:before {
+				top: .2em;
+				content: "-";
+			}
+		}
+		
+		&.no li:before {
+			content: "" !important;
+		}
+	}
+	
+	ol {
+		list-style: decimal;
+		li {
+			margin-left: 1.7em; //2.7em
+			padding-left: 0;
+			&:before {
+				content: "";
+			}
+		}
+	}
+
+	dl.cal {
+		@fs: 0.8em;
+		@bl: -1.7em;
+		
+		// ensure that left edge aligns with normal text
+		margin-left: -1 * @fs * @bl; 
+		
+		dt {
+			font-size: @fs;
+			font-weight: 400;
+			letter-spacing: .5pt;
+			position: relative;
+			
+			// requires FontAwesome to be loaded
+			&:before {
+				position: absolute;
+				left: @bl;
+				width: 1em;
+				font-family: FontAwesome;
+				content: "\f073";
+			}
+		}
+		
+		dd {
+			margin-bottom: .7em;
+		}
+	}
+	
+	div.clr {
+		clear: both;
+	}
+				
+	// -- LINKS ---------------------------------------------------------------
+	
+	a[href] {
+		position: relative;
+		z-index: 5;
+		text-decoration: none;
+		color: @link_col;
+		border-bottom: 1px solid fade(@link_col, 30%);
+		transition: color .2s ease;
+	
+		// avoid wrapping, preserves proper boxes for highlighting
+		hyphens: none;
+		white-space: nowrap;
+	}
+	
+	a[href]:after {
+		position: absolute;
+		top: -4px;
+		left: -5px;
+		padding: 3px 5px;
+		width: 100%;
+		height: 100%;
+		
+		transition: opacity .2s ease;
+		opacity: 0;
+		background-color: @text_col;
+		content: "";
+		z-index: -1;
+		
+		border-radius: 2px;
+	}
+	
+	// remove link highlighting around images
+	a.i {
+		border-width: 0;
+		&:after {
+			display: none;
+		}
+	}
+		
+	a[href]:hover {
+		// TODO adjust colors
+		color: #444;
+	}
+
+	a[href]:hover:after {
+		opacity: 1;
+	}
+}
+
+@media screen and (max-width: @handset) {
+	section {
+		
+		// disable non-breking links, as they will overflow small screens
+		a[href] {
+		white-space: initial;
+		word-break: break-all;
+		hyphens: auto;
+			&:hover:after {
+				display: none;
+			}
+		}
+		
+		// show headings normal, without line behind
+		div.h {
+			position: relative;
+			text-align: center;
+			border-bottom: 1px solid fade(@text_col, 50%);
+	
+			h1,h2,h3,h4,h5,h6 {
+				display: inline;
+				padding: 0;
+			}
+	
+			&:after {
+				display: none;
+			}
+		}
+	}
+}
+
+// -- teaser titles -----------------------------------------------------------
+.cd-fixed-bg h1 {
+	color: white;
+	font-size: 5em; // TOOO -- responsive by page width
+	margin-top: -.5em;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+	font-weight: 100;
+}
